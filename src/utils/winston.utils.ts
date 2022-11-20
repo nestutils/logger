@@ -1,5 +1,5 @@
 import { Format } from 'logform';
-import { DEFAULT_HANDLER_NAME } from '../constants/winston.contants';
+import { DEFAULT_HANDLER_NAME, WINSTON_MODULE_NEST_PROVIDER } from '../constants/winston.contants';
 import { LogFormat, LoggerOptions, LogLevels } from '../types';
 import { Logger, createLogger, transports, format } from 'winston';
 
@@ -61,6 +61,7 @@ export const getRequiredLoggerOptions = (
     context: DEFAULT_HANDLER_NAME,
     defaultLoggingContext: DEFAULT_HANDLER_NAME,
     allowedLogLevels: LogLevels.debug,
+    providerName: WINSTON_MODULE_NEST_PROVIDER
   };
 
   return { ...defaultOptions, ...options };
