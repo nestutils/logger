@@ -8,6 +8,7 @@ export interface LoggerOptions {
   context?: string;
   defaultLoggingContext?: string;
   allowedLogLevels?: LogLevels;
+  providerName?: string;
 }
 
 export enum LogFormat {
