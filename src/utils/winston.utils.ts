@@ -1,5 +1,8 @@
 import { Format } from 'logform';
-import { DEFAULT_HANDLER_NAME, WINSTON_MODULE_NEST_PROVIDER } from '../constants/winston.contants';
+import {
+  DEFAULT_HANDLER_NAME,
+  WINSTON_MODULE_NEST_PROVIDER,
+} from '../constants/winston.contants';
 import { LogFormat, LoggerOptions, LogLevels } from '../types';
 import { Logger, createLogger, transports, format } from 'winston';
 
@@ -8,9 +11,9 @@ import { Logger, createLogger, transports, format } from 'winston';
  * @param options logger options.
  * @returns new instance of winston logger.
  */
-export const getWinstonLogger = (options: LoggerOptions = {}): Logger => {
-  const loggingOptions = getRequiredLoggerOptions(options);
-
+export const getWinstonLogger = (
+  loggingOptions: Required<LoggerOptions>,
+): Logger => {
   // Initialize Formatting Options, Used By Logger.
   let formattingOptions: Format[] = [];
   if (loggingOptions.timestamp) {
@@ -37,10 +40,7 @@ export const getWinstonLogger = (options: LoggerOptions = {}): Logger => {
   return createLogger({
     // For Printing into console.
     transports: [new transports.Console()],
-    defaultMeta: {
-      // Printing handler into logs.
-      handler: loggingOptions.context,
-    },
+    defaultMeta: {},
     format: format.combine(...formattingOptions),
     exitOnError: false,
   });
@@ -61,8 +61,48 @@ export const getRequiredLoggerOptions = (
     context: DEFAULT_HANDLER_NAME,
     defaultLoggingContext: DEFAULT_HANDLER_NAME,
     allowedLogLevels: LogLevels.debug,
-    providerName: WINSTON_MODULE_NEST_PROVIDER
+    providerName: WINSTON_MODULE_NEST_PROVIDER,
   };
 
-  return { ...defaultOptions, ...options };
+  return {
+    ...defaultOptions,
+    ...options,
+    context:
+      options.context || options.defaultLoggingContext || DEFAULT_HANDLER_NAME,
+  };
+};
+
+/**
+ * Captures the number of format (i.e. %s strings) in a given string.
+ * @type {RegExp}
+ */
+export const formatRegExp: RegExp = /%[scdjifoO%]/g;
+
+/**
+ * Captures the number of escaped % signs in a format string (i.e. %s strings).
+ * @type {RegExp}
+ */
+export const escapedPercent: RegExp = /%%/g;
+
+/**
+ * Checks if a string contains placeholders or not.
+ * @param value
+ * @returns
+ */
+export const isStringContainsPlaceholder = (value: string) => {
+  if ('string' !== typeof value) {
+    return false;
+  }
+
+  // Calculates Percents, which needs to be escaed.
+  const percents = value.match(escapedPercent);
+  const escapes = (percents && percents.length) || 0;
+
+  // Calculate Total Percents.
+  const tokens = (value && value.match && value.match(formatRegExp)) || [];
+
+  // The expected splat is the number of tokens minus the number of escapes
+  const expectedSplat = tokens.length - escapes;
+
+  return expectedSplat > 0;
 };
