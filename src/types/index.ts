@@ -19,12 +19,8 @@ export enum LogFormat {
 // As Per RFC5424 defined the 7 logging levels.
 // https://www.rfc-editor.org/rfc/rfc5424
 export enum LogLevels {
-  emerg = 0,
-  alert = 1,
-  crit = 2,
-  error = 3,
-  warning = 4,
-  notice = 5,
-  info = 6,
-  debug = 7,
+  error = 'error',
+  warn = 'error',
+  info = 'info',
+  debug = 'debug',
 }

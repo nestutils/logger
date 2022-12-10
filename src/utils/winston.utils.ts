@@ -43,6 +43,7 @@ export const getWinstonLogger = (
     defaultMeta: {},
     format: format.combine(...formattingOptions),
     exitOnError: false,
+    level: loggingOptions.allowedLogLevels,
   });
 };
 
