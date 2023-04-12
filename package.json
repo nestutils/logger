@@ -1,6 +1,6 @@
 {
   "name": "@nestutils/logger",
-  "version": "0.0.1",
+  "version": "0.0.1-rc.8",
   "private": false,
   "license": "MIT",
   "description": "Logging Module For NestJS",
