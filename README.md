@@ -5,7 +5,7 @@
 <h1 align="center">@nestutils/logger</h1>
 
 ## Description
-This NestJS Module is a wrapper over winston to work out of the box with NestJS Applications. Currently Providing Feature of transporting logs to console only.
+This NestJS Module works out of the box with NestJS Applications. Currently Providing Feature of transporting logs to console only.
 
 ## Installation
 In your existing NestJS-based project:
@@ -23,10 +23,7 @@ import { LoggerModule } from '@nestutils/logger';
     imports: [
     LoggerModule.forRoot({
       timestamp: true, // Whether to print timestamp with logs or not.
-      useStringInterpolation: true, // Whether to use string interpolation with logs or not.
-      logFormat: 'JSON', // format of logs. valid values: 'JSON', 'SIMPLE'
       defaultLoggingContext: 'DefaultContext', // Default Logging Context, in case if context is not provided, it will be used.
-      allowedLogLevels : 7, // Allowed log levels. ranges from 0 to 7. 0-emergency, 7- debug
       providerName: 'DefaultProviderName' // Provider Name of current instance, which will be used for DI.
     }),
       ]
@@ -50,7 +47,7 @@ export class AppController {
     this.logger.log('Request Received');
     // Request Received
 
-    this.logger.log('Request Received For %s',name); 
+    this.logger.log('Request Received For {}',name); 
     // Request Received For Joy
   }
 }

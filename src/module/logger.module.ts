@@ -1,17 +1,17 @@
 import { DynamicModule, Module, Global } from '@nestjs/common';
-import { Logger } from '../logger/logger';
-import { WINSTON_MODULE_NEST_PROVIDER } from '../constants/winston.contants';
+import { Logger } from '../service/logger.service';
+import { LOGGER_MODULE_NEST_PROVIDER } from '../constants/logger.contants';
 import { LoggerOptions } from '../types';
 
 @Global()
 @Module({})
 export class LoggerModule {
   static forRoot(options: LoggerOptions = {}): DynamicModule {
-    // Set Global options into Winston Logger Service.
+    // Set Global options into Logger Service.
     Logger.setGlobalOptions(options);
 
-    const winstonProvider = {
-      provide: options.providerName || WINSTON_MODULE_NEST_PROVIDER,
+    const loggerProvider = {
+      provide: options.providerName || LOGGER_MODULE_NEST_PROVIDER,
       useFactory: () => {
         return new Logger(options);
       },
@@ -19,8 +19,8 @@ export class LoggerModule {
 
     return {
       module: LoggerModule,
-      providers: [winstonProvider],
-      exports: [winstonProvider],
+      providers: [loggerProvider],
+      exports: [loggerProvider],
     };
   }
 }
