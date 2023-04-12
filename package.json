@@ -1,13 +1,15 @@
 {
   "name": "@nestutils/logger",
-  "version": "0.0.1-rc.6",
+  "version": "0.0.1-rc.7",
   "private": false,
-  "license": "MIT" ,
-  "description": "Logging Module For NestJS based upon winston",
+  "license": "MIT",
+  "description": "Logging Module For NestJS",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "rimraf dist && tsc",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "build": "rimraf lib && tsc --project tsconfig.build.json",
     "format": "prettier **/**/*.ts --ignore-path ./.prettierignore --write && git status",
     "publish": "npm run build && npm publish --access=public"
   },
@@ -18,22 +20,22 @@
   ],
   "author": "Priyanshu Belwal",
   "dependencies": {
-    "winston": "^3.8.2"
+    "safe-stable-stringify": "^2.4.3"
   },
   "devDependencies": {
-    "@nestjs/common": "^9.2.1",
-    "@nestjs/core": "^9.2.1",
-    "@nestjs/testing": "^9.2.1",
-    "@types/glob": "^8.0.0",
-    "@types/jest": "29.2.4",
-    "@types/node": "^18.11.17",
-    "jest": "^29.3.1",
-    "prettier": "^2.8.1",
+    "@nestjs/common": "^9.4.0",
+    "@nestjs/core": "^9.4.0",
+    "@nestjs/testing": "^9.4.0",
+    "@types/glob": "^8.1.0",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^18.15.11",
+    "jest": "^29.5.0",
+    "prettier": "^2.8.7",
     "reflect-metadata": "^0.1.13",
-    "rimraf": "^3.0.2",
+    "rimraf": "^5.0.0",
     "rxjs": "^7.8.0",
-    "ts-jest": "^29.0.3",
-    "typescript": "^4.9.4"
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.4"
   },
   "repository": {
     "type": "git",
