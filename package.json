@@ -9,7 +9,7 @@
   "scripts": {
     "test": "jest --coverage",
     "test:watch": "jest --watch",
-    "build": "rimraf dist && tsc",
+    "build": "rimraf lib && tsc --project tsconfig.build.json",
     "format": "prettier **/**/*.ts --ignore-path ./.prettierignore --write && git status",
     "publish": "npm run build && npm publish --access=public"
   },
@@ -20,8 +20,7 @@
   ],
   "author": "Priyanshu Belwal",
   "dependencies": {
-    "safe-stable-stringify": "^2.4.3",
-    "winston": "^3.8.2"
+    "safe-stable-stringify": "^2.4.3"
   },
   "devDependencies": {
     "@nestjs/common": "^9.4.0",
